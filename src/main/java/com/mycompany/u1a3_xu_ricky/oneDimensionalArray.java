@@ -36,6 +36,7 @@ public class oneDimensionalArray extends javax.swing.JFrame {
         input = new javax.swing.JTextField();
         deleteButton = new javax.swing.JButton();
         addButton = new javax.swing.JButton();
+        outputField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Summation of Integer");
@@ -71,18 +72,24 @@ public class oneDimensionalArray extends javax.swing.JFrame {
                 .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(146, 146, 146))
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(input, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(outputField, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(128, 128, 128)
+                                .addComponent(input, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(19, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
+                        .addGap(45, 45, 45)
                         .addComponent(deleteButton)
-                        .addGap(47, 47, 47)
-                        .addComponent(addButton)))
-                .addContainerGap(108, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addButton)
+                        .addGap(48, 48, 48))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,14 +98,18 @@ public class oneDimensionalArray extends javax.swing.JFrame {
                 .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(28, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(51, 51, 51)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(deleteButton)
-                            .addComponent(addButton))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                            .addComponent(addButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(outputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46))))
         );
 
         pack();
@@ -106,6 +117,7 @@ public class oneDimensionalArray extends javax.swing.JFrame {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
+        outputField.setText("");
         String numAsString = input.getText();
         
         try {
@@ -117,25 +129,54 @@ public class oneDimensionalArray extends javax.swing.JFrame {
             
             for (int i = 0; i < currentIndex; i++){
                arrayAsString += numList[i] + "\n";
-                    
-                  
-                }
-            output.setText(arrayAsString);
-            
+                 output.setText(arrayAsString);
+            } 
         } catch (Exception e){
                 
-                output.setText("Try again!");
+                outputField.setText("Try again! Enter a posvtive number.");
+                input.setText("");
                 
         }
-        
-        
+               
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         // TODO add your handling code here:
-        String numRemoveAsString = input.getText(); 
+        outputField.setText("");
+        String numAsString = input.getText();
+        
+        try {
+            int numAsInt = Integer.parseInt(numAsString);
+            
+            for (int i = 0; i < currentIndex; i++){
+                if (numList[i] == numAsInt){
+                    numList[i] = 0;
+                    break;
+                }
+            }
+                
+   
+           
+            String arrayAsString = "";
+            
+            for (int i = 0; i < currentIndex; i++){
+               arrayAsString += numList[i] + "\n";
+                 output.setText(arrayAsString);
+            } 
+        } catch (Exception e){
+                
+                outputField.setText("Try again! Enter a positive number.");
+                input.setText("");
+                
+        }
+        
         
     }//GEN-LAST:event_deleteButtonActionPerformed
+          
+        
+        
+                         
+                                              
 
     /**
      * @param args the command line arguments
@@ -163,7 +204,7 @@ public class oneDimensionalArray extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(oneDimensionalArray.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        System.out.println("Hi");
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -180,5 +221,6 @@ public class oneDimensionalArray extends javax.swing.JFrame {
     private javax.swing.JTextField input;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea output;
+    private javax.swing.JTextField outputField;
     // End of variables declaration//GEN-END:variables
 }
