@@ -13,6 +13,7 @@ public class oneDimensionalArray extends javax.swing.JFrame {
     
     int[] numList = new int[20]; //creates an array with 20 cells
     int currentIndex; //tells which index is being inputed into the list
+    int lastIndex = 0;
     
     /**
      * Creates new form oneDimensionalArray
@@ -150,12 +151,18 @@ public class oneDimensionalArray extends javax.swing.JFrame {
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
         outputField.setText("");
-        String numAsString = input.getText();
+        String numAsString = input.getText().trim();
+        
         
         try {
             int numAsInt = Integer.parseInt(numAsString);
                 
             if (numAsInt > 0) {
+                if (currentIndex == 20) {
+                    outputField.setText("The array is full");
+                    input.setText("");
+                    return;
+                }
 
                 numList[currentIndex++] = numAsInt;
 
@@ -165,42 +172,39 @@ public class oneDimensionalArray extends javax.swing.JFrame {
                     arrayAsString += numList[i] + "\n";
                     output.setText(arrayAsString);
                 }
-            } else
-                outputField.setText("Try again! Enter a positive number.");
+            } else {
+                outputField.setText("Try again! Enter a positive integer.");
+                input.setText("");
+            }
             
         } catch (Exception e){
                 
-                outputField.setText("Try again! Enter a positive number.");
-                input.setText("");
+                    outputField.setText("Try again! Enter an integer.");
+                    input.setText("");
+                              
                 
-        }
+        }         
         
         
-        try {
-            
-        } catch (ArrayIndexOutOfBoundsException e)
-        {
-            outputField.setText("The array is full");
-        }
         
-               
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         // TODO add your handling code here:
         outputField.setText("");
-        String numAsString = input.getText();
+        String numAsString = input.getText().trim();
         
         try {
             int numAsInt = Integer.parseInt(numAsString);
             String arrayAsString = "";
-            boolean numInList = false;
+            boolean numInList = false; 
             
             if (numAsInt > 0) {
                 for (int i = 0; i < currentIndex; i++) {
                     if (numList[i] == numAsInt) {
-                        numList[i] = 0;
                         numInList = true;
+                        numList[i] = 0;
+                        
                         break;
                     } 
                 }              
@@ -213,30 +217,28 @@ public class oneDimensionalArray extends javax.swing.JFrame {
                         }
                     }
                     currentIndex--;
+                    
                 } else{
                     outputField.setText("Number does not exist in array");
+                    input.setText("");
                 }
                 
-                 for (int i = 0; i < currentIndex; i++) {
+                for (int i = 0; i < currentIndex; i++) {
                     arrayAsString += numList[i] + "\n";  
                 }
                  output.setText(arrayAsString);
                 
-            } else
-                outputField.setText("Try again! Enter a positive number.");
+            } else {
+                outputField.setText("Try again! Enter a positive integer.");
+                input.setText("");
+            }
             
         } catch (Exception e){
                 
-                outputField.setText("Try again! Enter a positive number.");
+                outputField.setText("Try again! Enter an integer.");
                 input.setText("");       
         }
-        
-        for (int i = 0; i < currentIndex; i++){
-            if (numList[i-1] == 0){
-                numList[i-1] = numList[i];
-                numList[i] = 0;
-            }
-        }
+
         
     }//GEN-LAST:event_deleteButtonActionPerformed
 
